@@ -1,0 +1,22 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Borealis",
+        "title": "Demo API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "https://localhost:8080",
+    "basePath": "",
+    "paths": {},
+    "definitions": {
+        "models.Status": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
