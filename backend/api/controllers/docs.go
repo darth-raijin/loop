@@ -6,6 +6,7 @@ import (
 	swagger "github.com/gofiber/swagger"
 )
 
+// @tags docs
 func Swagger(app *fiber.App) {
 	api := app.Group("/swagger")
 

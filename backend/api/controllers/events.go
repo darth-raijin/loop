@@ -9,9 +9,18 @@ import (
 func Events(app *fiber.App) {
 	event := app.Group("/event")
 
-	// @Param request body main.MyHandler.request true "query params"
-	// @Success 200 {object} dtos.Test
-	// @Router /test [post]
+	//	@Summary		Fetches a specific event and the listed questions
+	//	@Description	get string by ID
+	//	@ID				get-string-by-int
+	//	@Tags			bottles
+	//	@Accept			json
+	//	@Produce		json
+	//	@Param			id	path		int	true	"Event ID"
+	//	@Success		200	{object}	dtos.Event
+	//	@Failure		400	{object}	httputil.HTTPError
+	//	@Failure		404	{object}	httputil.HTTPError
+	//	@Failure		500	{object}	httputil.HTTPError
+	//	@Router			/bottles/{id} [get]
 	event.Get("*", func(c *fiber.Ctx) error {
 		return c.SendString(fmt.Sprintf("Placeholder for %s", c.BaseURL()))
 	})

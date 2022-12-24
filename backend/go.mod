@@ -2,12 +2,14 @@ module github.com/darth-raijin/borealis
 
 go 1.18
 
-require github.com/gofiber/fiber v1.14.6
+require (
+	github.com/gofiber/fiber v1.14.6
+	github.com/gofiber/swagger v0.1.8
+)
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
-	github.com/gofiber/swagger v0.1.8 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	github.com/urfave/cli/v2 v2.23.7 // indirect
@@ -18,14 +20,13 @@ require (
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
-	github.com/arsmn/fiber-swagger/v2 v2.31.1
-	github.com/create-go-app/fiber-go-template v1.14.0
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
 	github.com/go-openapi/jsonreference v0.20.0 // indirect
 	github.com/go-openapi/spec v0.20.7 // indirect
 	github.com/go-openapi/swag v0.22.3 // indirect
 	github.com/gofiber/fiber/v2 v2.40.1
 	github.com/gofiber/utils v0.0.10 // indirect
+	github.com/google/uuid v1.3.0
 	github.com/gookit/color v1.5.2
 	github.com/gorilla/schema v1.1.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
