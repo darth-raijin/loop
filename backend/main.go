@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/darth-raijin/borealis/api/controllers"
+	_ "github.com/darth-raijin/borealis/docs"
 	"github.com/gofiber/fiber/v2"
 )
 
