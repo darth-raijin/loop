@@ -3,14 +3,12 @@ package api
 import (
 	"github.com/darth-raijin/borealis/api/controllers"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	swagger "github.com/gofiber/swagger"
 )
 
 func Initialize() *fiber.App {
 	app := fiber.New()
-	app.Use(cors.New())
 
 	app.Get("/swagger", swagger.New(swagger.Config{ // custom
 		Title: "Borealis",
