@@ -11,36 +11,36 @@ import (
 func Initialize() *fiber.App {
 	app := fiber.New()
 	app.Use(cors.New())
-	app.Use(logger.New(logger.Config{
-		Format:   "${cyan}[${time}] ${white}${pid} ${red}${status} ${blue}[${method}] ${white}${path}\n",
-		TimeZone: "Europe/Copenhagen",
-	}))
 
-	app.Get("*", swagger.New(swagger.Config{ // custom
+	app.Get("/swagger", swagger.New(swagger.Config{ // custom
 		Title: "Borealis",
 	}))
 
 	api := app.Group("/api")
-
-	// Initializing v1 endpoints
-	v1 := api.Group("/v1", func(c *fiber.Ctx) error {
-		c.JSON(fiber.Map{
-			"message": "Borealis v1",
-		})
-		return c.Next()
-	})
+	api.Use(logger.New(logger.Config{
+		Format:   "${cyan}[${time}] API log \n",
+		TimeZone: "Europe/Copenhagen",
+	}))
 
 	// Auth endpoints
-	auth := v1.Group("/auth")
-	auth.Get("/login", controllers.GetEventById)
+	auth := api.Group("/auth")
+	auth.Get("/login", func(c *fiber.Ctx) error {
+		return c.SendString("I'm a GET request!")
+	})
 	auth.Post("/login", controllers.GetEventById)
+	auth.Use(logger.New(logger.Config{
+		Format:   "${cyan}[${time}] auth log}\n",
+		TimeZone: "Europe/Copenhagen",
+	}))
 
 	auth.Get("/register", controllers.GetEventById)
 	auth.Post("/register", controllers.GetEventById)
 
 	// Profile
-	profile := v1.Group("/profile")
-	profile.Get("/profile", controllers.GetEventById)
+	profile := api.Group("/profile")
+	profile.Get("/profile", func(c *fiber.Ctx) error {
+		return c.SendString("I'm a GET request!")
+	})
 	profile.Put("/profile", controllers.GetEventById)
 	profile.Delete("/profile", controllers.GetEventById)
 
