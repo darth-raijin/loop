@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"github.com/darth-raijin/borealis/api/controllers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	swagger "github.com/gofiber/swagger"
@@ -19,20 +18,11 @@ func Initialize() *fiber.App {
 
 	api := app.Group("/api")
 
+	// Registering endpoints
 	initializeAuth(api)
-	// Auth endpoints
-
-	// Profile endpoints
-	profile := api.Group("/profile")
-	profile.Use(logger.New(logger.Config{
-		Format:   "${cyan}[${time}]${red} ${status}${white} - ${method} ${url}  \n",
-		TimeZone: "Europe/Copenhagen",
-	}))
-	profile.Get("/profile", func(c *fiber.Ctx) error {
-		return c.SendString("I'm a GET request!")
-	})
-	profile.Put("/profile", controllers.GetEventById)
-	profile.Delete("/profile", controllers.GetEventById)
+	initializeEvent(api)
+	initializeFeedback(api)
+	initializeProfile(api)
 
 	return app
 }
