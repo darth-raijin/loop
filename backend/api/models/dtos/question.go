@@ -6,7 +6,7 @@ import (
 )
 
 type Question struct {
-	ID       uuid.UUID `json:"id" format:"uuid"`
-	Question string    `json:"question"`
+	ID       uuid.UUID    `json:"id" format:"uuid"`
+	Question string       `json:"question"`
 	Rating   enums.Rating `json:"rating"`
 }
