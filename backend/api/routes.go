@@ -10,18 +10,23 @@ import (
 func Initialize() *fiber.App {
 	app := fiber.New()
 
-	app.Get("/swagger", swagger.New(swagger.Config{ // custom
+	app.Get("/swagger/*", swagger.New(swagger.Config{ // custom
 		Title: "Borealis",
 	}))
 
 	api := app.Group("/api")
 	api.Use(logger.New(logger.Config{
-		Format:   "${cyan}[${time}] API log \n",
+		Format:   "${cyan}[${time}]${white} API log \n",
 		TimeZone: "Europe/Copenhagen",
 	}))
 
 	// Auth endpoints
 	auth := api.Group("/auth")
+	auth.Use(logger.New(logger.Config{
+		Format:   "${cyan}[${time}]${white} Maraluxa log \n",
+		TimeZone: "Europe/Copenhagen",
+	}))
+
 	auth.Get("/login", func(c *fiber.Ctx) error {
 		return c.SendString("I'm a GET request!")
 	})
