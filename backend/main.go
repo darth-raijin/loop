@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/darth-raijin/borealis/api"
+	"github.com/darth-raijin/borealis/api/routes"
 	_ "github.com/darth-raijin/borealis/docs"
 )
 
@@ -15,7 +15,7 @@ var (
 // @version 2.0
 // @description REST API server for Borealis aka 'the Feedback' app
 func main() {
-	app := api.Initialize()
+	app := routes.Initialize()
 
 	fmt.Println(`
 	 __                                                __  __           
