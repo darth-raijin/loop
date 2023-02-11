@@ -17,7 +17,7 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/api/v1/events": {
-            "get": {
+            "post": {
                 "description": "Creates an event",
                 "consumes": [
                     "application/json"
@@ -29,23 +29,22 @@ const docTemplate = `{
                     "Event"
                 ],
                 "summary": "Creates an event",
+                "parameters": [
+                    {
+                        "description": "Required parameters to create an event",
+                        "name": "Event",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dtos.Event"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/dtos.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/dtos.Event"
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/dtos.Event"
                         }
                     },
                     "404": {
@@ -62,11 +61,79 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/v1/events/{id}": {
+            "get": {
+                "description": "Get a specific event by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Get a specific event by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id for fetching given event",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dtos.Response"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
         "dtos.Event": {
-            "type": "object"
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "questions"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Go Crash Course"
+                },
+                "questions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/dtos.Question"
+                    }
+                }
+            }
+        },
+        "dtos.Question": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "question": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "integer"
+                }
+            }
         },
         "dtos.Response": {
             "type": "object",

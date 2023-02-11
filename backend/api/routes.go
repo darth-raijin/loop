@@ -1,4 +1,4 @@
-package routes
+package api
 
 import (
 	"github.com/darth-raijin/borealis/api/handlers"
@@ -30,9 +30,19 @@ func Initialize() *fiber.App {
 		return c.Next()
 	})
 
-	// Event endpoints
-	v1.Get("/events/:id", handlers.GetEventById)
-	v1.Post("/events/", handlers.CreateEvent)
+	// Auth endpoints
+	auth := v1.Group("/auth")
+	auth.Get("/login", handlers.GetEventById)
+	auth.Post("/login", handlers.GetEventById)
+
+	auth.Get("/register", handlers.GetEventById)
+	auth.Post("/register", handlers.GetEventById)
+
+	// Profile
+	profile := v1.Group("/profile")
+	profile.Get("/profile", handlers.GetEventById)
+	profile.Put("/profile", handlers.GetEventById)
+	profile.Delete("/profile", handlers.GetEventById)
 
 	return app
 }

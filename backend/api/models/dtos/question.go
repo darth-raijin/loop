@@ -1,8 +1,12 @@
 package dtos
 
-import "github.com/darth-raijin/borealis/api/models/enums"
+import (
+	"github.com/darth-raijin/borealis/api/models/enums"
+	"github.com/google/uuid"
+)
 
 type Question struct {
-	question string
-	rating   enums.Rating
+	ID       uuid.UUID `json:"id" format:"uuid"`
+	Question string    `json:"question"`
+	Rating   enums.Rating `json:"rating"`
 }

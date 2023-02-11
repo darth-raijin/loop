@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/darth-raijin/borealis/api"
 	_ "github.com/darth-raijin/borealis/docs"
-	"github.com/gofiber/fiber/v2"
 )
 
 var (
@@ -13,10 +13,8 @@ var (
 // @version 2.0
 // @description REST API server for Borealis aka 'the Feedback' app
 func main() {
-	app := fiber.New()
+	app := api.Initialize()
 
 	// Registering controllers
-	controllers.Swagger(app)
-
-	app.Listen(":8080")
+	app.Listen(":5000")
 }

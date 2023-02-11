@@ -5,8 +5,7 @@ import (
 )
 
 type Event struct {
-	id           uuid.UUID
-	name         string
-	questions    []Question
-	participants []string
+	ID        uuid.UUID  `json:"id" validate:"required" format:"uuid"`
+	Name      string     `json:"name" validate:"required" example:"Go Crash Course"`
+	Questions []Question `json:"questions" validate:"required"`
 }

@@ -1,5 +1,30 @@
 definitions:
   dtos.Event:
+    properties:
+      id:
+        format: uuid
+        type: string
+      name:
+        example: Go Crash Course
+        type: string
+      questions:
+        items:
+          $ref: '#/definitions/dtos.Question'
+        type: array
+    required:
+    - id
+    - name
+    - questions
+    type: object
+  dtos.Question:
+    properties:
+      id:
+        format: uuid
+        type: string
+      question:
+        type: string
+      rating:
+        type: integer
     type: object
   dtos.Response:
     properties:
@@ -16,22 +41,24 @@ info:
   version: "2.0"
 paths:
   /api/v1/events:
-    get:
+    post:
       consumes:
       - application/json
       description: Creates an event
+      parameters:
+      - description: Required parameters to create an event
+        in: body
+        name: Event
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.Event'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            allOf:
-            - $ref: '#/definitions/dtos.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/dtos.Event'
-              type: object
+            $ref: '#/definitions/dtos.Event'
         "404":
           description: Not Found
           schema:
@@ -41,6 +68,27 @@ paths:
           schema:
             $ref: '#/definitions/dtos.Response'
       summary: Creates an event
+      tags:
+      - Event
+  /api/v1/events/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get a specific event by ID
+      parameters:
+      - description: id for fetching given event
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dtos.Response'
+      summary: Get a specific event by ID
       tags:
       - Event
 swagger: "2.0"

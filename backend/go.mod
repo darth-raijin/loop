@@ -16,6 +16,7 @@ require (
 	github.com/go-openapi/swag v0.22.3 // indirect
 	github.com/gofiber/fiber/v2 v2.40.1
 	github.com/gofiber/utils v0.0.10 // indirect
+	github.com/gofrs/uuid v4.3.1+incompatible
 	github.com/google/uuid v1.3.0
 	github.com/gookit/color v1.5.2
 	github.com/gorilla/schema v1.1.0 // indirect
