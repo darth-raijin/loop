@@ -1,2 +1,2 @@
-FROM mongo:6.0.4
+FROM postgres:alpine3.17
 

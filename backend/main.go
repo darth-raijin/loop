@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/darth-raijin/borealis/api/routes"
 	_ "github.com/darth-raijin/borealis/docs"
@@ -31,6 +32,7 @@ func main() {
 							$$ |      
 							$$/       
 	`)
-	// Registering controllers
+
+	fmt.Println(fmt.Sprintf("BUILD ENVIRONMENT: %s", os.Getenv("env")))
 	app.Listen(":5000")
 }
