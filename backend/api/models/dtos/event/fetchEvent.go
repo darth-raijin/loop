@@ -1,10 +1,13 @@
 package event
 
-import "time"
+import (
+	"github.com/google/uuid"
+)
 
 type FetchEventDto struct {
-	ID       string    `json:"id"`
-	Name     string    `json:"name"`
-	Location string    `json:"location,omitempty"`
-	Created  time.Time `json:"created"`
+	ID          uuid.UUID `json:"id"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	City        string    `json:"city,omitempty"`
+	Country     string    `json:"country,omitempty"`
 }

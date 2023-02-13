@@ -5,9 +5,9 @@ import (
 
 	"github.com/darth-raijin/borealis/api/models/dtos"
 	"github.com/darth-raijin/borealis/api/models/dtos/event"
+	"github.com/darth-raijin/borealis/pkg/service"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
-	"github.com/google/uuid"
 )
 
 // Get a specific event by ID
@@ -48,8 +48,12 @@ func CreateEvent(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(validationError)
 	}
 
-	return c.Status(http.StatusOK).JSON(dtos.Event{
-		ID:   uuid.New(),
-		Name: "Foo",
-	})
+	event, err := service.CreateEvent(payload)
+
+	// TODO revisit
+	if err != nil {
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(err)
+	}
+
+	return c.Status(http.StatusOK).JSON(event)
 }
