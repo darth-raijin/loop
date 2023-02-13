@@ -9,7 +9,7 @@ import (
 func Initialize() *fiber.App {
 	app := fiber.New()
 
-	if os.Getenv("env") != "prod" {
+	if os.Getenv("ENV") != "prod" {
 		initializeSwagger(app)
 	}
 

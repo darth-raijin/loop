@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/gofrs/uuid"
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
