@@ -51,7 +51,7 @@ func CreateEvent(c *fiber.Ctx) error {
 	event, err := service.CreateEvent(payload)
 
 	// TODO revisit
-	if err != nil {
+	if err == (dtos.ErrorResponse{}) {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(err)
 	}
 
