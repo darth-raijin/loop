@@ -9,3 +9,7 @@ type ErrorResponse struct {
 	Message         string    `json:"message"`
 	Timestamp       time.Time `json:"timestamp"`
 }
+
+func (e *ErrorResponse) Error() string {
+	return e.Message
+}
