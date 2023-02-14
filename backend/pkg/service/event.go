@@ -13,7 +13,7 @@ func CreateEvent(payload *event.CreateEventDto) (event.FetchEventDto, dtos.Error
 
 	// DB transaction here -> pass err from here to return err
 
-	if 2 != 4 {
+	if 2 == 4 {
 		return event.FetchEventDto{}, dtos.ErrorResponse{
 			Message:   "Error creating event",
 			Timestamp: time.Now().UTC(),

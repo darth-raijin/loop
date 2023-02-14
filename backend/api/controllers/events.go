@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/darth-raijin/borealis/api/models/dtos"
 	"github.com/darth-raijin/borealis/api/models/dtos/event"
@@ -45,15 +46,18 @@ func CreateEvent(c *fiber.Ctx) error {
 
 	validationError := validator.New().Struct(payload)
 	if validationError != nil {
-		return c.Status(fiber.StatusUnprocessableEntity).JSON(validationError)
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(dtos.ErrorResponse{
+			Message:   validationError.Error(),
+			Timestamp: time.Now().UTC(),
+		})
 	}
 
 	event, err := service.CreateEvent(payload)
 
 	// TODO revisit
-	if err == (dtos.ErrorResponse{}) {
+	if err != (dtos.ErrorResponse{}) {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(err)
 	}
 
-	return c.Status(http.StatusOK).JSON(event)
+	return c.Status(http.StatusCreated).JSON(event)
 }

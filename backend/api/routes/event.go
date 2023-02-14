@@ -9,16 +9,14 @@ import (
 func initializeEvent(api fiber.Router) {
 	event := api.Group("/event")
 	event.Use(logger.New(logger.Config{
-		Format:   "${cyan}[${time}]${red} ${status}${white} - ${method} ${url}  \n",
+		Format: "${cyan}[${time}]${red} ${status}${white} - ${method} ${url}\n" +
+			"${resBody}\n",
 		TimeZone: "Europe/Copenhagen",
 	}))
 
 	event.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("I'm a GET request!")
 	})
-	event.Post("/", controllers.GetEventById)
-	event.Use(logger.New(logger.Config{
-		Format:   "${cyan}[${time}] auth log}\n",
-		TimeZone: "Europe/Copenhagen",
-	}))
+
+	event.Post("/", controllers.CreateEvent)
 }
