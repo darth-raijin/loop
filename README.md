@@ -1,6 +1,6 @@
-# borealis
+# loop
 ## Description
-Backend REST API used for Borealis, aka 'the Feedback App'.
+Backend REST API used for loop, aka 'the Feedback App'.
 
 ## How to use?
 
