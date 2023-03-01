@@ -37,7 +37,7 @@ func main() {
 	`)
 
 	fmt.Println(fmt.Sprintf("BUILD ENVIRONMENT: %s", GetEnvironmentVariable("ENV")))
-	app.Listen(":5000")
+	app.Listen(":8080")
 }
 
 func GetEnvironmentVariable(key string) string {

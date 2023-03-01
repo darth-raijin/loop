@@ -1,0 +1,9 @@
+pipeline {
+    agent none
+
+    stages {
+        stage("setup") {
+            env.GIT_REVISION = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
+        }
+    }
+}
