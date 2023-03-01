@@ -1,0 +1,11 @@
+Dockerfile for GOFiber API
+Deploy Docker image to DockerHub
+
+Use image in LocalKube2
+
+Build Jenkins pipline
+    Lint GoCode
+    Deploy to DockerHub -> tag with version
+
+
+Dockerfile for DB

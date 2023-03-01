@@ -11,12 +11,11 @@ import (
 )
 
 var (
-	Version string = "0.0.1"
+	Version string = "1.0.0"
 )
 
-// @title Borealis
-// @version 2.0
-// @description REST API server for Borealis aka 'the Feedback' app
+// @title Loop
+// @description REST API server for Loop aka 'the Feedback' app
 func main() {
 
 	app := routes.Initialize()
