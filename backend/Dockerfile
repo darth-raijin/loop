@@ -6,4 +6,4 @@ COPY . .
 
 RUN go mod download
 
-RUN go run main.go
+CMD [ "go build -o . ." ]
