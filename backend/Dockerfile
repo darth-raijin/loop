@@ -11,5 +11,5 @@ RUN addgroup -S loop && adduser -S loop -G loop
 USER loop
 WORKDIR /home/loop
 COPY --from=builder /bin/loop ./
-EXPOSE 3000
+EXPOSE 8080
 ENTRYPOINT ["./loop"]
