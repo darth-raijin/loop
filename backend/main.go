@@ -39,7 +39,7 @@ func GetEnvironmentVariable(key string) string {
 }
 
 func printLogo() {
-	content, err := ioutil.ReadFile("resources/logo")
+	content, err := ioutil.ReadFile("./resources/logo")
 
 	if err != nil {
 		log.Fatal(err)
