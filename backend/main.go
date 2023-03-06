@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -20,21 +21,7 @@ func main() {
 
 	app := routes.Initialize()
 
-	fmt.Println(`
-	__                               
-	/  |                              
-	$$ |  ______    ______    ______  
-	$$ | /      \  /      \  /      \ 
-	$$ |/$$$$$$  |/$$$$$$  |/$$$$$$  |
-	$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |
-	$$ |$$ \__$$ |$$ \__$$ |$$ |__$$ |
-	$$ |$$    $$/ $$    $$/ $$    $$/ 
-	$$/  $$$$$$/   $$$$$$/  $$$$$$$/  
-							$$ |      
-							$$ |      
-							$$/       
-	
-	`)
+	printLogo()
 
 	fmt.Println(fmt.Sprintf("BUILD ENVIRONMENT: %s", GetEnvironmentVariable("ENV")))
 	app.Listen(":8080")
@@ -49,4 +36,14 @@ func GetEnvironmentVariable(key string) string {
 	}
 
 	return os.Getenv(key)
+}
+
+func printLogo() {
+	content, err := ioutil.ReadFile("resources/logo")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(string(content))
 }
