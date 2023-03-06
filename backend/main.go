@@ -21,7 +21,6 @@ func main() {
 
 	app := routes.Initialize()
 
-	fmt.Println(fmt.Sprintf("BUILD ENVIRONMENT: %s", GetEnvironmentVariable("ENV")))
 	app.Listen(":8080")
 }
 
