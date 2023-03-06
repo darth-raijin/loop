@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: loop-backend
-        image: <Image>
+        image: h0tsauce/loop-api:2e33acfea7aaa8cae21d03f35385a7eb404e8bc0
         resources:
         ports:
         - containerPort: 8080
