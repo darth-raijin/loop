@@ -21,10 +21,7 @@ import (
 // @Failure 404 {object} dtos.ErrorResponse{}
 // @Router /api/v1/events/{id} [get]
 func GetEventById(c *fiber.Ctx) error {
-	return c.Status(http.StatusServiceUnavailable).JSON(dtos.ErrorResponse{
-		DomainErrorCode: 5001,
-		Message:         "No worky worky",
-	})
+	return c.Status(http.StatusServiceUnavailable).JSON(dtos.DomainErrorWrapper{})
 }
 
 // Creates an event
@@ -56,7 +53,7 @@ func CreateEvent(c *fiber.Ctx) error {
 	event, err := service.CreateEvent(payload)
 
 	// TODO revisit
-	if err != (dtos.DomainError{}) {
+	if _ != (dtos.DomainError{}) {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(err)
 	}
 

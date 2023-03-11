@@ -12,15 +12,13 @@ func CreateEvent(payload *createEventDto.CreateEventRequest) (createEventDto.Cre
 
 	// DB transaction here -> pass err from here to return err
 
-	if 2 == 4 {
-		return createEventDto.CreateEventResponse{}, dtos.DomainErrorWrapper{}
-	}
-
-	return createEventDto.CreateEventResponse{
+	created := createEventDto.CreateEventResponse{
 		ID:          sampleUUID,
 		Name:        payload.Name,
 		Description: payload.Description,
 		City:        payload.City,
 		Country:     payload.Country,
-	}, dtos.DomainErrorWrapper{}
+	}
+
+	return created, dtos.DomainErrorWrapper{}
 }
