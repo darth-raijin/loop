@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/darth-raijin/borealis/api/models/dtos"
-	"github.com/darth-raijin/borealis/api/models/dtos/event"
+	createEventDto "github.com/darth-raijin/borealis/api/models/dtos/event/createevent"
 	"github.com/darth-raijin/borealis/pkg/service"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
@@ -38,7 +38,7 @@ func GetEventById(c *fiber.Ctx) error {
 // @Failure 419 {object} dtos.ErrorResponse{}
 // @Router /api/v1/events [post]
 func CreateEvent(c *fiber.Ctx) error {
-	payload := new(event.CreateEventDto)
+	payload := new(createEventDto.CreateEventRequest)
 
 	if err := c.BodyParser(payload); err != nil {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(err)
@@ -46,7 +46,8 @@ func CreateEvent(c *fiber.Ctx) error {
 
 	validationError := validator.New().Struct(payload)
 	if validationError != nil {
-		return c.Status(fiber.StatusUnprocessableEntity).JSON(dtos.ErrorResponse{
+		// Check list and create a DomainErrorWrapper and return
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(dtos.DomainError{
 			Message:   validationError.Error(),
 			Timestamp: time.Now().UTC(),
 		})
@@ -55,7 +56,7 @@ func CreateEvent(c *fiber.Ctx) error {
 	event, err := service.CreateEvent(payload)
 
 	// TODO revisit
-	if err != (dtos.ErrorResponse{}) {
+	if err != (dtos.DomainError{}) {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(err)
 	}
 

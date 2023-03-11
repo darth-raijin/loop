@@ -1,0 +1,9 @@
+{
+    "Errors": [
+        {
+            "DomainErrorCode": 4001,
+            "DebugMessage": "Field FOO is invalid",
+            "Timestamp": "Lige nu ya sehh me"
+        }
+    ]
+}
