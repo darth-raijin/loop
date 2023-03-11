@@ -8,6 +8,7 @@ import (
 
 	"github.com/darth-raijin/borealis/api/routes"
 	_ "github.com/darth-raijin/borealis/docs"
+	"github.com/darth-raijin/borealis/pkg/repository"
 	"github.com/joho/godotenv"
 )
 
@@ -18,6 +19,8 @@ var (
 // @title Loop
 // @description REST API server for Loop aka 'the Feedback' app
 func main() {
+
+	repository.ConnectDatabase()
 
 	app := routes.Initialize()
 
