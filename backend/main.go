@@ -6,9 +6,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/darth-raijin/borealis/api/routes"
-	_ "github.com/darth-raijin/borealis/docs"
-	"github.com/darth-raijin/borealis/pkg/repository"
+	"github.com/darth-raijin/loop/api/routes"
+	_ "github.com/darth-raijin/loop/docs"
+	"github.com/darth-raijin/loop/pkg/repository"
 	"github.com/joho/godotenv"
 )
 

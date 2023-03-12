@@ -8,6 +8,7 @@ import (
 
 type Event struct {
 	ID          uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primary_key"`
+	CreatedBy   string
 	Name        string
 	Description string
 	City        string

@@ -4,11 +4,11 @@ import (
 	"net/http"
 	"time"
 
-	errorDto "github.com/darth-raijin/borealis/api/models/dtos/error"
+	errorDto "github.com/darth-raijin/loop/api/models/dtos/error"
 
-	createEventDto "github.com/darth-raijin/borealis/api/models/dtos/event/createevent"
-	"github.com/darth-raijin/borealis/pkg/service"
-	"github.com/darth-raijin/borealis/pkg/utility"
+	createEventDto "github.com/darth-raijin/loop/api/models/dtos/event/createevent"
+	"github.com/darth-raijin/loop/pkg/service"
+	"github.com/darth-raijin/loop/pkg/utility"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )

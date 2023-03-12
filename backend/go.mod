@@ -1,4 +1,4 @@
-module github.com/darth-raijin/borealis
+module github.com/darth-raijin/loop
 
 go 1.18
 

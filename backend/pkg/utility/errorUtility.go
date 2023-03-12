@@ -1,7 +1,7 @@
 package utility
 
 import (
-	errorDto "github.com/darth-raijin/borealis/api/models/dtos/error"
+	errorDto "github.com/darth-raijin/loop/api/models/dtos/error"
 
 	"github.com/go-playground/validator/v10"
 )

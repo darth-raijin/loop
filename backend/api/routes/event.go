@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"github.com/darth-raijin/borealis/api/controllers"
+	"github.com/darth-raijin/loop/api/controllers"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )

@@ -1,10 +1,10 @@
 package service
 
 import (
-	errorDto "github.com/darth-raijin/borealis/api/models/dtos/error"
-	createEventDto "github.com/darth-raijin/borealis/api/models/dtos/event/createevent"
-	"github.com/darth-raijin/borealis/api/models/entities"
-	"github.com/darth-raijin/borealis/pkg/repository"
+	errorDto "github.com/darth-raijin/loop/api/models/dtos/error"
+	createEventDto "github.com/darth-raijin/loop/api/models/dtos/event/createevent"
+	"github.com/darth-raijin/loop/api/models/entities"
+	"github.com/darth-raijin/loop/pkg/repository"
 )
 
 func CreateEvent(payload *createEventDto.CreateEventRequest) (createEventDto.CreateEventResponse, errorDto.DomainErrorWrapper) {

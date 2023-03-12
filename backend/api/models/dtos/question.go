@@ -1,7 +1,7 @@
 package dtos
 
 import (
-	"github.com/darth-raijin/borealis/api/models/enums"
+	"github.com/darth-raijin/loop/api/models/enums"
 	"github.com/google/uuid"
 )
 

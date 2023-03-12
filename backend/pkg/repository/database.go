@@ -6,7 +6,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/darth-raijin/borealis/api/models/entities"
+	"github.com/darth-raijin/loop/api/models/entities"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
