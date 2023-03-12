@@ -8,6 +8,7 @@ import (
 
 func initializeFeedback(api fiber.Router) {
 	feedback := api.Group("/feedback")
+
 	feedback.Use(logger.New(logger.Config{
 		Format:   "${cyan}[${time}]${red} ${status}${white} - ${method} ${url}  \n",
 		TimeZone: "Europe/Copenhagen",

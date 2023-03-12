@@ -8,6 +8,7 @@ import (
 
 func initializeEvent(api fiber.Router) {
 	event := api.Group("/event")
+
 	event.Use(logger.New(logger.Config{
 		Format: "${cyan}[${time}]${red} ${status}${white} - ${method} ${url}\n" +
 			"${resBody}\n",

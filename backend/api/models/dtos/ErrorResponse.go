@@ -11,10 +11,10 @@ type DomainError struct {
 }
 
 type DomainErrorWrapper struct {
-	Errors []DomainError `json:errors"`
+	Errors []DomainError `json:"errors"`
 }
 
 func (wrapper *DomainErrorWrapper) AddDomainError(error DomainError) *DomainErrorWrapper {
-	_ = append(wrapper.Errors, error)
+	wrapper.Errors = append(wrapper.Errors, error)
 	return wrapper
 }
