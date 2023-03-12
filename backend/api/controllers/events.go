@@ -31,8 +31,8 @@ func GetEventById(c *fiber.Ctx) error {
 // @Accept json
 // @Produce json
 // @Param Event body dtos.Event true "Required parameters to create an event"
-// @Success 201 {object} dtos.CreateEventDto{}
-// @Failure 419 {object} dtos.ErrorResponse{}
+// @Success 201 {object} createEventDto.CreateEventRequest{}
+// @Failure 419 {object} dtos.DomainErrorWrapper{}
 // @Router /api/v1/events [post]
 func CreateEvent(c *fiber.Ctx) error {
 	payload := new(createEventDto.CreateEventRequest)
@@ -50,10 +50,10 @@ func CreateEvent(c *fiber.Ctx) error {
 		})
 	}
 
+	// Passing DTO to service class for handling
 	event, err := service.CreateEvent(payload)
 
-	// TODO revisit
-	if _ != (dtos.DomainError{}) {
+	if len(err.Errors) > 0 {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(err)
 	}
 

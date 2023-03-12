@@ -19,15 +19,16 @@ var (
 // @title Loop
 // @description REST API server for Loop aka 'the Feedback' app
 func main() {
-
-	repository.ConnectDatabase()
+	LoadEnvironmentConfig()
+	repository.GormConnectDatabase()
 
 	app := routes.Initialize()
 
+	printLogo()
 	app.Listen(":8080")
 }
 
-func GetEnvironmentVariable(key string) string {
+func LoadEnvironmentConfig() {
 	err := godotenv.Load("./.env")
 
 	if err != nil {
@@ -35,7 +36,6 @@ func GetEnvironmentVariable(key string) string {
 		os.Exit(1)
 	}
 
-	return os.Getenv(key)
 }
 
 func printLogo() {
