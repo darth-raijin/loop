@@ -1,8 +1,14 @@
-package dtos
+package errorDto
 
 import (
 	"time"
 )
+
+// Declaring specific DTOs for DomainErrors
+var CreateEvent = DomainError{
+	DomainErrorCode: 1,
+	Message:         "%s is unknown",
+}
 
 type DomainError struct {
 	DomainErrorCode int       `json:"domainErrorCode,omitempty"`

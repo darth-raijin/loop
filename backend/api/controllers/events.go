@@ -4,7 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/darth-raijin/borealis/api/models/dtos"
+	errorDto "github.com/darth-raijin/borealis/api/models/dtos/error"
+
 	createEventDto "github.com/darth-raijin/borealis/api/models/dtos/event/createevent"
 	"github.com/darth-raijin/borealis/pkg/service"
 	"github.com/go-playground/validator/v10"
@@ -21,7 +22,7 @@ import (
 // @Failure 404 {object} dtos.ErrorResponse{}
 // @Router /api/v1/events/{id} [get]
 func GetEventById(c *fiber.Ctx) error {
-	return c.Status(http.StatusServiceUnavailable).JSON(dtos.DomainErrorWrapper{})
+	return c.Status(http.StatusServiceUnavailable).JSON(errorDto.DomainErrorWrapper{})
 }
 
 // Creates an event
@@ -44,7 +45,7 @@ func CreateEvent(c *fiber.Ctx) error {
 	validationError := validator.New().Struct(payload)
 	if validationError != nil {
 		// Check list and create a DomainErrorWrapper and return
-		return c.Status(fiber.StatusUnprocessableEntity).JSON(dtos.DomainError{
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(errorDto.DomainError{
 			Message:   validationError.Error(),
 			Timestamp: time.Now().UTC(),
 		})

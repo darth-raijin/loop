@@ -1,13 +1,13 @@
 package service
 
 import (
-	"github.com/darth-raijin/borealis/api/models/dtos"
+	errorDto "github.com/darth-raijin/borealis/api/models/dtos/error"
 	createEventDto "github.com/darth-raijin/borealis/api/models/dtos/event/createevent"
 
 	"github.com/google/uuid"
 )
 
-func CreateEvent(payload *createEventDto.CreateEventRequest) (createEventDto.CreateEventResponse, dtos.DomainErrorWrapper) {
+func CreateEvent(payload *createEventDto.CreateEventRequest) (createEventDto.CreateEventResponse, errorDto.DomainErrorWrapper) {
 	sampleUUID, _ := uuid.NewUUID()
 
 	// DB transaction here -> pass err from here to return err
@@ -20,5 +20,5 @@ func CreateEvent(payload *createEventDto.CreateEventRequest) (createEventDto.Cre
 		Country:     payload.Country,
 	}
 
-	return created, dtos.DomainErrorWrapper{}
+	return created, errorDto.DomainErrorWrapper{}
 }
