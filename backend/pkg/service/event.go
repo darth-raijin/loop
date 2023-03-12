@@ -2,7 +2,7 @@ package service
 
 import (
 	errorDto "github.com/darth-raijin/loop/api/models/dtos/error"
-	createEventDto "github.com/darth-raijin/loop/api/models/dtos/event/createevent"
+	createEventDto "github.com/darth-raijin/loop/api/models/dtos/event/create"
 	"github.com/darth-raijin/loop/api/models/entities"
 	"github.com/darth-raijin/loop/pkg/repository"
 )

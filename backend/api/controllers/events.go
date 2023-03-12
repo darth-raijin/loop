@@ -6,7 +6,7 @@ import (
 
 	errorDto "github.com/darth-raijin/loop/api/models/dtos/error"
 
-	createEventDto "github.com/darth-raijin/loop/api/models/dtos/event/createevent"
+	createEventDto "github.com/darth-raijin/loop/api/models/dtos/event/create"
 	"github.com/darth-raijin/loop/pkg/service"
 	"github.com/darth-raijin/loop/pkg/utility"
 	"github.com/go-playground/validator/v10"
