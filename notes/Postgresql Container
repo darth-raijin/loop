@@ -1,4 +1,4 @@
-docker run --name postgresql -e POSTGRES_USER=test -e POSTGRES_PASSWORD=test -e POSTGRES_DB=test -p 5432:5432 -v /data:/var/lib/postgresql/data -d postgres
+docker run --name postgresql -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=test -e POSTGRES_DB=loop -p 127.0.0.1:5432:5432 -v /data:/var/lib/postgresql/data -d postgres
 docker run -d --network=host \
   -e "DB_DBNAME=loop" \
   -e "DB_PORT=5432" \
