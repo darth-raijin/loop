@@ -6,13 +6,14 @@ import (
 	"os"
 	"sync"
 
+	"github.com/darth-raijin/borealis/api/models/entities"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 var (
 	once   sync.Once
-	gormDB *gorm.DB
+	GormDB *gorm.DB
 )
 
 func GormConnectDatabase() {
@@ -31,7 +32,7 @@ func GormConnectDatabase() {
 			database,
 		)
 
-		gormDB, err = gorm.Open(postgres.Open(connection), &gorm.Config{})
+		GormDB, err = gorm.Open(postgres.Open(connection), &gorm.Config{})
 
 		if err != nil {
 			log.Fatalln(err)
@@ -43,5 +44,5 @@ func GormConnectDatabase() {
 }
 
 func migrateEntities() {
-
+	GormDB.AutoMigrate(&entities.Event{})
 }

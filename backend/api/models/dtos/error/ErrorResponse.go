@@ -11,13 +11,13 @@ var CreateEvent = DomainError{
 }
 
 type DomainError struct {
-	DomainErrorCode int       `json:"domainErrorCode,omitempty"`
-	Message         string    `json:"message"`
-	Timestamp       time.Time `json:"timestamp"`
+	DomainErrorCode int    `json:"domainErrorCode,omitempty"`
+	Message         string `json:"message"`
 }
 
 type DomainErrorWrapper struct {
-	Errors []DomainError `json:"errors"`
+	Timestamp time.Time     `json:"timestamp"`
+	Errors    []DomainError `json:"errors"`
 }
 
 func (wrapper *DomainErrorWrapper) AddDomainError(error DomainError) *DomainErrorWrapper {

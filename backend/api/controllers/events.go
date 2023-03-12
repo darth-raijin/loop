@@ -8,6 +8,7 @@ import (
 
 	createEventDto "github.com/darth-raijin/borealis/api/models/dtos/event/createevent"
 	"github.com/darth-raijin/borealis/pkg/service"
+	"github.com/darth-raijin/borealis/pkg/utility"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
@@ -44,10 +45,12 @@ func CreateEvent(c *fiber.Ctx) error {
 
 	validationError := validator.New().Struct(payload)
 	if validationError != nil {
+		validationErrors := validationError.(validator.ValidationErrors)
+
 		// Check list and create a DomainErrorWrapper and return
-		return c.Status(fiber.StatusUnprocessableEntity).JSON(errorDto.DomainError{
-			Message:   validationError.Error(),
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(errorDto.DomainErrorWrapper{
 			Timestamp: time.Now().UTC(),
+			Errors:    utility.CreateValidationSlice(validationErrors),
 		})
 	}
 

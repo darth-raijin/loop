@@ -3,22 +3,26 @@ package service
 import (
 	errorDto "github.com/darth-raijin/borealis/api/models/dtos/error"
 	createEventDto "github.com/darth-raijin/borealis/api/models/dtos/event/createevent"
-
-	"github.com/google/uuid"
+	"github.com/darth-raijin/borealis/api/models/entities"
+	"github.com/darth-raijin/borealis/pkg/repository"
 )
 
 func CreateEvent(payload *createEventDto.CreateEventRequest) (createEventDto.CreateEventResponse, errorDto.DomainErrorWrapper) {
-	sampleUUID, _ := uuid.NewUUID()
-
-	// DB transaction here -> pass err from here to return err
-
-	created := createEventDto.CreateEventResponse{
-		ID:          sampleUUID,
-		Name:        payload.Name,
-		Description: payload.Description,
-		City:        payload.City,
-		Country:     payload.Country,
+	entity := entities.Event{
+		Name:        "Sample Event",
+		Description: "Sample Description",
+		City:        "Copenhagen",
+		Country:     "Denmark",
+		Questions:   []entities.Question{},
 	}
+	// DB transaction here -> pass err from here to return err
+	repository.GormDB.Create(&entity)
 
-	return created, errorDto.DomainErrorWrapper{}
+	return createEventDto.CreateEventResponse{
+		ID:          entity.ID,
+		Name:        entity.Name,
+		Description: entity.Description,
+		City:        entity.City,
+		Country:     entity.Country,
+	}, errorDto.DomainErrorWrapper{}
 }
