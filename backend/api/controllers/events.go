@@ -55,7 +55,7 @@ func CreateEvent(c *fiber.Ctx) error {
 	}
 
 	// Passing DTO to service class for handling
-	event, err := service.CreateEvent(payload)
+	event, err := service.EventService.CreateEvent(payload)
 
 	if len(err.Errors) > 0 {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(err)

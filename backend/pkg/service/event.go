@@ -7,7 +7,11 @@ import (
 	"github.com/darth-raijin/loop/pkg/repository"
 )
 
-func CreateEvent(payload *createEventDto.CreateEventRequest) (createEventDto.CreateEventResponse, errorDto.DomainErrorWrapper) {
+var EventService eventService
+
+type eventService struct{}
+
+func (eventService) CreateEvent(*createEventDto.CreateEventRequest) (createEventDto.CreateEventResponse, errorDto.DomainErrorWrapper) {
 	entity := entities.Event{
 		Name:        "Sample Event",
 		Description: "Sample Description",
@@ -25,4 +29,18 @@ func CreateEvent(payload *createEventDto.CreateEventRequest) (createEventDto.Cre
 		City:        entity.City,
 		Country:     entity.Country,
 	}, errorDto.DomainErrorWrapper{}
+}
+
+func (eventService) FetchEvent(*createEventDto.CreateEventRequest) (createEventDto.CreateEventResponse, errorDto.DomainErrorWrapper) {
+
+	return createEventDto.CreateEventResponse{}, errorDto.DomainErrorWrapper{}
+}
+
+func (eventService) UpdateEvent(*createEventDto.CreateEventRequest) (createEventDto.CreateEventResponse, errorDto.DomainErrorWrapper) {
+
+	return createEventDto.CreateEventResponse{}, errorDto.DomainErrorWrapper{}
+}
+
+func (eventService) FetchQuestions(*createEventDto.CreateEventRequest) (createEventDto.CreateEventResponse, errorDto.DomainErrorWrapper) {
+	return createEventDto.CreateEventResponse{}, errorDto.DomainErrorWrapper{}
 }
