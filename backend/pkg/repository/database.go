@@ -3,7 +3,6 @@ package repository
 import (
 	"fmt"
 	"log"
-	"sync"
 
 	"github.com/darth-raijin/loop/api/models/entities"
 	"gorm.io/driver/postgres"
@@ -11,18 +10,19 @@ import (
 )
 
 var (
-	once   sync.Once
 	GormDB *gorm.DB
 )
 
 func GormConnectDatabase() {
-
 	var err error
-	username := "admin"
-	password := "test"
+
+	// Values declared in .env -> keep secret pls
+	username := "postgres"
+	password := "postgres"
 	host := "127.0.0.1"
 	port := 5432
-	database := "loop"
+	database := "tolder"
+
 	connection := fmt.Sprintf("postgresql://%v:%v@%v:%v/%v?sslmode=disable",
 		username,
 		password,
@@ -43,5 +43,8 @@ func GormConnectDatabase() {
 }
 
 func migrateEntities() {
+	GormDB.AutoMigrate(&entities.Question{})
 	GormDB.AutoMigrate(&entities.Event{})
+	GormDB.AutoMigrate(&entities.Feedback{})
+	GormDB.AutoMigrate(&entities.User{})
 }

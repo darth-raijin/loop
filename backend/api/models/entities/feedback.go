@@ -6,9 +6,11 @@ import (
 	"github.com/google/uuid"
 )
 
-type Question struct {
+type Feedback struct {
 	ID       uuid.UUID `gorm:"type:uuid;primary_key"`
-	Question string
+	Event    Event     `gorm:"foreignKey:ID"`
+	Question Question  `gorm:"foreignKey:ID"`
+	User     User      `gorm:"foreignKey:ID"`
 	Created  time.Time `gorm:"autoCreateTime"`
 	Updated  time.Time
 }

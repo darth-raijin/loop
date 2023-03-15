@@ -9,3 +9,14 @@ Build Jenkins pipline
 
 
 Dockerfile for DB
+
+Database design:
+
+Reusing Questions to avoid duplicate Qs -> AI model? 
+    If question exists 1:1 for String -> to avoid crazy fuzzy search n stuff like that
+     Requires heavy optimization for performance and indexes on questions    
+
+Mapped Table - Feedback
+Index på Question & Event:
+    - Event hente alle spørgsmål + feedback 
+User    Rating  Question    Event
