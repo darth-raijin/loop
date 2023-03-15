@@ -16,12 +16,12 @@ func initializeAuth(api fiber.Router) {
 	auth.Get("/login", func(c *fiber.Ctx) error {
 		return c.SendString("I'm a GET request!")
 	})
-	auth.Post("/login", controllers.GetEventById)
+	auth.Post("/login", controllers.RegisterUser)
 	auth.Use(logger.New(logger.Config{
 		Format:   "${cyan}[${time}] auth log}\n",
 		TimeZone: "Europe/Copenhagen",
 	}))
 
 	auth.Get("/register", controllers.GetEventById)
-	auth.Post("/register", controllers.GetEventById)
+	auth.Post("/register", controllers.RegisterUser)
 }

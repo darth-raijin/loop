@@ -15,6 +15,29 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/auth/register": {
+            "post": {
+                "description": "DomainErrorCodes:\n2: Email is already in use\n3: Password not secure",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Registers a user",
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/errorDto.DomainErrorWrapper"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/events": {
             "post": {
                 "description": "Creates an event",
@@ -40,22 +63,16 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/dtos.Event"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/dtos.Response"
+                            "$ref": "#/definitions/createEventDto.CreateEventRequest"
                         }
                     },
                     "419": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/dtos.Response"
+                            "$ref": "#/definitions/errorDto.DomainErrorWrapper"
                         }
                     }
                 }
@@ -87,7 +104,7 @@ const docTemplate = `{
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/dtos.Response"
+                            "$ref": "#/definitions/errorDto.DomainErrorWrapper"
                         }
                     }
                 }
@@ -95,6 +112,32 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "createEventDto.CreateEventRequest": {
+            "type": "object",
+            "required": [
+                "description",
+                "name"
+            ],
+            "properties": {
+                "city": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "country": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "example": "Sample description"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 32,
+                    "minLength": 3
+                }
+            }
+        },
         "dtos.Event": {
             "type": "object",
             "required": [
@@ -134,14 +177,27 @@ const docTemplate = `{
                 }
             }
         },
-        "dtos.Response": {
+        "errorDto.DomainError": {
             "type": "object",
             "properties": {
-                "data": {},
                 "domainErrorCode": {
                     "type": "integer"
                 },
                 "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "errorDto.DomainErrorWrapper": {
+            "type": "object",
+            "properties": {
+                "errors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/errorDto.DomainError"
+                    }
+                },
+                "timestamp": {
                     "type": "string"
                 }
             }
@@ -151,12 +207,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "2.0",
+	Version:          "",
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "Borealis",
-	Description:      "REST API server for Borealis aka 'the Feedback' app",
+	Title:            "Loop",
+	Description:      "REST API server for Loop aka 'the Feedback' app",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

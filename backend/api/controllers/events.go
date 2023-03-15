@@ -20,7 +20,7 @@ import (
 // @Accept json
 // @Produce json
 // @Param id query string true "id for fetching given event"
-// @Failure 404 {object} dtos.ErrorResponse{}
+// @Failure 404 {object} errorDto.DomainErrorWrapper{}
 // @Router /api/v1/events/{id} [get]
 func GetEventById(c *fiber.Ctx) error {
 	return c.Status(http.StatusServiceUnavailable).JSON(errorDto.DomainErrorWrapper{})
@@ -34,7 +34,7 @@ func GetEventById(c *fiber.Ctx) error {
 // @Produce json
 // @Param Event body dtos.Event true "Required parameters to create an event"
 // @Success 201 {object} createEventDto.CreateEventRequest{}
-// @Failure 419 {object} dtos.DomainErrorWrapper{}
+// @Failure 419 {object} errorDto.DomainErrorWrapper{}
 // @Router /api/v1/events [post]
 func CreateEvent(c *fiber.Ctx) error {
 	payload := new(createEventDto.CreateEventRequest)

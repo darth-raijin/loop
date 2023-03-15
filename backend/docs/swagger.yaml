@@ -1,4 +1,23 @@
 definitions:
+  createEventDto.CreateEventRequest:
+    properties:
+      city:
+        maxLength: 255
+        type: string
+      country:
+        type: string
+      description:
+        example: Sample description
+        maxLength: 255
+        type: string
+      name:
+        maxLength: 32
+        minLength: 3
+        type: string
+    required:
+    - description
+    - name
+    type: object
   dtos.Event:
     properties:
       id:
@@ -26,20 +45,45 @@ definitions:
       rating:
         type: integer
     type: object
-  dtos.Response:
+  errorDto.DomainError:
     properties:
-      data: {}
       domainErrorCode:
         type: integer
       message:
         type: string
     type: object
+  errorDto.DomainErrorWrapper:
+    properties:
+      errors:
+        items:
+          $ref: '#/definitions/errorDto.DomainError'
+        type: array
+      timestamp:
+        type: string
+    type: object
 info:
   contact: {}
-  description: REST API server for Borealis aka 'the Feedback' app
-  title: Borealis
-  version: "2.0"
+  description: REST API server for Loop aka 'the Feedback' app
+  title: Loop
 paths:
+  /api/auth/register:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        DomainErrorCodes:
+        2: Email is already in use
+        3: Password not secure
+      produces:
+      - application/json
+      responses:
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/errorDto.DomainErrorWrapper'
+      summary: Registers a user
+      tags:
+      - Auth
   /api/v1/events:
     post:
       consumes:
@@ -55,18 +99,14 @@ paths:
       produces:
       - application/json
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           schema:
-            $ref: '#/definitions/dtos.Event'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/dtos.Response'
+            $ref: '#/definitions/createEventDto.CreateEventRequest'
         "419":
           description: ""
           schema:
-            $ref: '#/definitions/dtos.Response'
+            $ref: '#/definitions/errorDto.DomainErrorWrapper'
       summary: Creates an event
       tags:
       - Event
@@ -87,7 +127,7 @@ paths:
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/dtos.Response'
+            $ref: '#/definitions/errorDto.DomainErrorWrapper'
       summary: Get a specific event by ID
       tags:
       - Event
