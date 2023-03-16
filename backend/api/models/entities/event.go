@@ -17,6 +17,15 @@ type Event struct {
 	Updated     time.Time
 
 	// Mapping Host User{}
-	UserID uuid.UUID
-	User   User `gorm:"foreignKey:UserID"`
+	HostUsername string // FK for Host
+	Host         User   `gorm:"references:Username"`
+
+	// Mapping Participants
+	Participants []*User `gorm:"many2many:event_participants"`
+
+	// Mapping Questions
+	Questions []*Question `gorm:"many2many:event_questions"`
+
+	// Mapping Participants
+	Feedback []*Feedback `gorm:"many2many:event_feedback"`
 }

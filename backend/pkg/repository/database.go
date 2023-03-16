@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/darth-raijin/loop/api/models/entities"
-	"github.com/google/uuid"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -46,20 +45,9 @@ func GormConnectDatabase() {
 	migrateEntities()
 }
 
-type Test struct {
-	ID        uuid.UUID
-	Name      string
-	CompanyID int
-	Company   Company
-}
-
-type Company struct {
-	ID   uuid.UUID
-	Name string
-}
-
 func migrateEntities() {
 	GormDB.AutoMigrate(&entities.Question{})
 	GormDB.AutoMigrate(&entities.User{})
 	GormDB.AutoMigrate(&entities.Event{})
+	GormDB.AutoMigrate(&entities.Feedback{})
 }
