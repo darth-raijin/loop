@@ -7,13 +7,16 @@ import (
 )
 
 type Event struct {
-	ID          uuid.UUID `gorm:"type:uuid;primary_key"`
+	ID          uuid.UUID
 	CreatedBy   string
 	Name        string
 	Description string
 	City        string
 	Country     string
-	Questions   []Question `gorm:"foreignKey:ID"`
-	Created     time.Time  `gorm:"autoCreateTime"`
+	Created     time.Time
 	Updated     time.Time
+
+	// Mapping Host User{}
+	UserID uuid.UUID
+	User   User `gorm:"foreignKey:UserID"`
 }

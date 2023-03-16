@@ -7,7 +7,7 @@ import (
 )
 
 type Feedback struct {
-	ID       uuid.UUID `gorm:"type:uuid;primary_key"`
+	ID       uuid.UUID `gorm:"primary_key"`
 	Event    Event     `gorm:"foreignKey:ID"`
 	Question Question  `gorm:"foreignKey:ID"`
 	User     User      `gorm:"foreignKey:ID"`

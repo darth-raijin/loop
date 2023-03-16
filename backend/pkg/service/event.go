@@ -17,7 +17,6 @@ func (eventService) CreateEvent(*createEventDto.CreateEventRequest) (createEvent
 		Description: "Sample Description",
 		City:        "Copenhagen",
 		Country:     "Denmark",
-		Questions:   []entities.Question{},
 	}
 	// DB transaction here -> pass err from here to return err
 	repository.GormDB.Create(&entity)

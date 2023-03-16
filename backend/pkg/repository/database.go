@@ -3,8 +3,10 @@ package repository
 import (
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/darth-raijin/loop/api/models/entities"
+	"github.com/google/uuid"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -22,6 +24,7 @@ func GormConnectDatabase() {
 	host := "127.0.0.1"
 	port := 5432
 	database := "tolder"
+	retryDelay := 10
 
 	connection := fmt.Sprintf("postgresql://%v:%v@%v:%v/%v?sslmode=disable",
 		username,
@@ -35,16 +38,28 @@ func GormConnectDatabase() {
 
 	if err != nil {
 		log.Fatalln(err)
-		log.Default().Println("Failed connecting to database, retrying in 10 seconds")
+		log.Default().Println(fmt.Printf("Failed connecting to database, retrying in %v seconds", retryDelay))
+		time.Sleep(time.Second * time.Duration(retryDelay))
 		GormConnectDatabase()
 	}
 
 	migrateEntities()
 }
 
+type Test struct {
+	ID        uuid.UUID
+	Name      string
+	CompanyID int
+	Company   Company
+}
+
+type Company struct {
+	ID   uuid.UUID
+	Name string
+}
+
 func migrateEntities() {
 	GormDB.AutoMigrate(&entities.Question{})
-	GormDB.AutoMigrate(&entities.Event{})
-	GormDB.AutoMigrate(&entities.Feedback{})
 	GormDB.AutoMigrate(&entities.User{})
+	GormDB.AutoMigrate(&entities.Event{})
 }

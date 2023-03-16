@@ -7,8 +7,8 @@ import (
 )
 
 type Question struct {
-	ID       uuid.UUID `gorm:"type:uuid;primary_key"`
+	ID       uuid.UUID
 	Question string
-	Created  time.Time `gorm:"autoCreateTime"`
+	Created  time.Time
 	Updated  time.Time
 }

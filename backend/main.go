@@ -8,6 +8,7 @@ import (
 
 	"github.com/darth-raijin/loop/api/routes"
 	_ "github.com/darth-raijin/loop/docs"
+	"github.com/darth-raijin/loop/pkg/repository"
 	"github.com/joho/godotenv"
 )
 
@@ -19,6 +20,7 @@ var (
 // @description REST API server for Loop aka 'the Feedback' app
 func main() {
 	loadEnvironmentConfig()
+	repository.GormConnectDatabase()
 
 	app := routes.Initialize()
 
