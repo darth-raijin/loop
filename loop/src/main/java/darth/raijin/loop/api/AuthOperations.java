@@ -15,8 +15,8 @@ public interface AuthOperations {
     @PostMapping("/register")
     @Schema(description = "Used for registering a user")
     @ApiResponse(responseCode = "201", description = "Registered successfully")
-    @ApiResponse(responseCode = UsernameNotUnique.domainErrorCode, description = UsernameNotUnique.message)
-    @ApiResponse(responseCode = EmailNotUnique.domainErrorCode, description = EmailNotUnique.message)
+    @ApiResponse(responseCode = UsernameNotUnique.domainErrorCode, description = "UsernameNotUnique.message")
+    @ApiResponse(responseCode = EmailNotUnique.statusCode, description = EmailNotUnique.message)
     public ResponseEntity registerUser();
 
     @PostMapping("/login")
