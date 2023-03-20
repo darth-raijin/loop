@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatusCode;
 
 public class DomainErrorWrapperException extends Exception {
 
-    public DomainErrorWrapperException(String message, Instant timestamp, List<Error> errors, HttpStatusCode statusCode) {
+    public DomainErrorWrapperException(String message, Instant timestamp, List<DomainError> errors, HttpStatusCode statusCode) {
         super(message);
         this.timestamp = timestamp;
         this.errors = errors;
@@ -17,9 +17,9 @@ public class DomainErrorWrapperException extends Exception {
 
     private HttpStatusCode statusCode;
     private Instant timestamp;
-    private List<Error> errors;
+    private List<DomainError> errors;
 
-    public void appendError(Error error) {
+    public void appendError(DomainError error) {
         errors.add(error);
     }
 
@@ -35,7 +35,7 @@ public class DomainErrorWrapperException extends Exception {
         return timestamp;
     }
 
-    public List<Error> getErrors() {
+    public List<DomainError> getErrors() {
         return errors;
     }
 
