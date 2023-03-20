@@ -20,19 +20,15 @@ var PasswordNotSecure = DomainError{
 	Message:         "Password not secure",
 }
 
-var UsernameInUse = DomainError{
-	DomainErrorCode: 4,
-	Message:         "Username is already in use",
-}
-
 type DomainError struct {
 	DomainErrorCode int    `json:"domainErrorCode,omitempty"`
 	Message         string `json:"message"`
 }
 
 type DomainErrorWrapper struct {
-	Timestamp time.Time     `json:"timestamp"`
-	Errors    []DomainError `json:"errors"`
+	Statuscode int
+	Timestamp  time.Time     `json:"timestamp"`
+	Errors     []DomainError `json:"errors"`
 }
 
 func (wrapper *DomainErrorWrapper) AddDomainError(error DomainError) *DomainErrorWrapper {
