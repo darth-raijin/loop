@@ -73,7 +73,7 @@ func (authService) CreateUser(user registerUserDto.CreateEventRequest) (register
 }
 
 func (authService) LoginUser(user loginUserDto.LoginUserRequest) loginUserDto.LoginUserResponse {
-
+	
 	return loginUserDto.LoginUserResponse{}
 }
 

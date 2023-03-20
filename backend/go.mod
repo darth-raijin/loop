@@ -6,6 +6,7 @@ require (
 	github.com/go-playground/validator/v10 v10.11.2
 	github.com/gofiber/swagger v0.1.9
 	github.com/joho/godotenv v1.5.1
+	golang.org/x/crypto v0.7.0
 	gorm.io/driver/postgres v1.5.0
 	gorm.io/gorm v1.24.7-0.20230306060331-85eaf9eeda11
 )
@@ -23,7 +24,6 @@ require (
 	github.com/savsgio/dictpool v0.0.0-20221023140959-7bf2e61cea94 // indirect
 	github.com/savsgio/gotils v0.0.0-20220530130905-52f3993e8d6d // indirect
 	github.com/tinylib/msgp v1.1.6 // indirect
-	golang.org/x/crypto v0.7.0 // indirect
 	golang.org/x/text v0.8.0 // indirect
 )
 
