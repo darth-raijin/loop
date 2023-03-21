@@ -1,4 +1,4 @@
-package darth.raijin.loop.dtos.exceptions;
+package darth.raijin.loop.dtos.exceptions.domainError;
 
 import java.time.Instant;
 import java.util.List;

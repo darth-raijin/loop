@@ -1,4 +1,4 @@
-package darth.raijin.loop.dtos.exceptions;
+package darth.raijin.loop.dtos.exceptions.domainError;
 
 public class DomainError {
     public static String statusCode;
