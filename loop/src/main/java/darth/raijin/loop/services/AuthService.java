@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import darth.raijin.loop.dtos.exceptions.domainError.DomainError;
+import darth.raijin.loop.dtos.exceptions.domainError.DomainErrorWrapperException;
+import darth.raijin.loop.dtos.exceptions.domainError.EmailNotUnique;
+import darth.raijin.loop.dtos.exceptions.domainError.UsernameNotUnique;
 import darth.raijin.loop.dtos.users.registerUsers.RegisterUserRequestDto;
 import darth.raijin.loop.entities.UserEntity;
 import darth.raijin.loop.repositories.AuthRepository;
@@ -15,21 +19,21 @@ public class AuthService {
     private AuthRepository authRepository;
 
     public UserEntity registerUser(RegisterUserRequestDto dto) {
+        UserEntity user = new UserEntity(dto.name(), dto.username(), dto.email(), dto.password());
+
         try {
-            UserEntity user = new UserEntity(null, null, null, null)
             return authRepository.save(user);
 
         } catch (DataIntegrityViolationException ex) {
-            String errorMessage;
-            if (ex.getMessage().contains("username")) {
-                errorMessage = "Username already exists";
-            } else if (ex.getMessage().contains("email")) {
-                errorMessage = "Email already exists";
-            } else {
-                errorMessage = "User registration failed";
-            }
-            throw new IllegalArgumentException(errorMessage);
+            DomainErrorWrapperException wrapper = new DomainErrorWrapperException();
+
+            if (ex.getMessage().contains("username"))
+                wrapper.appendError(new UsernameNotUnique(dto.username()));
+
+            if (ex.getMessage().contains("email"))
+                wrapper.appendError(new EmailNotUnique(dto.email()));
+
+            throw wrapper;
         }
     }
-
 }
