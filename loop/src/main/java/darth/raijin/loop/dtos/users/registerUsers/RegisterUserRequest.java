@@ -65,6 +65,9 @@ public record RegisterUserRequest(
             wrapper.appendError(new WeakPassword("Password too weak :/"));
         }
 
+        if (!wrapper.getErrors().isEmpty()) {
+            throw wrapper;
+        }
 
     }
 }
