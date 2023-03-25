@@ -1,13 +1,14 @@
 package darth.raijin.loop.api;
 
+import darth.raijin.loop.dtos.users.loginUsers.LoginUserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import darth.raijin.loop.dtos.users.registerUsers.RegisterUserRequestDto;
-import darth.raijin.loop.dtos.users.registerUsers.RegisterUserResponseDto;
+import darth.raijin.loop.dtos.users.registerUsers.RegisterUserRequest;
+import darth.raijin.loop.dtos.users.registerUsers.RegisterUserResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
@@ -18,9 +19,9 @@ public interface AuthOperations {
     @Schema(description = "Used for registering a user")
     @ApiResponse(responseCode = "201", description = "Registered successfully")
     @ApiResponse(responseCode = "409", description = "Either Username or Email is not unique")
-    public ResponseEntity<RegisterUserResponseDto> 
-    registerUser(@RequestBody @Validated RegisterUserRequestDto user);
+    public ResponseEntity<RegisterUserResponse>
+    registerUser(@RequestBody @Validated RegisterUserRequest user);
 
     @PostMapping("/login")
-    public ResponseEntity loginUser();
+    public ResponseEntity<LoginUserResponse> loginUser();
 }

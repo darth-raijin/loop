@@ -1,8 +1,9 @@
-package darth.raijin.loop.dtos.exceptions.domainError;
+package darth.raijin.loop.dtos.exceptions.domainError.errors;
+
+import darth.raijin.loop.dtos.exceptions.domainError.DomainError;
 
 public class UsernameNotUnique extends DomainError {
-    public final static String statusCode = "409";
-    public final static String domainErrorCode = "4090";
+    public final static String domainErrorCode = "1";
     public final static String message = "Username %s is not unique";
 
     public UsernameNotUnique(String username) {
