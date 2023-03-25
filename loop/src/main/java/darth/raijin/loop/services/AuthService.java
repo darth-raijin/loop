@@ -8,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import darth.raijin.loop.dtos.exceptions.domainError.DomainErrorWrapperException;
-import darth.raijin.loop.dtos.exceptions.domainError.errors.EmailNotUnique;
-import darth.raijin.loop.dtos.exceptions.domainError.errors.UsernameNotUnique;
+import darth.raijin.loop.dtos.exceptions.domainError.errors.Users.EmailNotUnique;
+import darth.raijin.loop.dtos.exceptions.domainError.errors.Users.UsernameNotUnique;
 import darth.raijin.loop.dtos.users.registerUsers.RegisterUserRequest;
 import darth.raijin.loop.entities.UserEntity;
 import darth.raijin.loop.repositories.AuthRepository;
@@ -21,7 +20,6 @@ import darth.raijin.loop.repositories.AuthRepository;
 @Service
 public class AuthService implements AuthInterface {
 
-    @Autowired
     private AuthRepository authRepository;
 
     @Autowired
@@ -31,6 +29,8 @@ public class AuthService implements AuthInterface {
 
     @Override
     public RegisterUserResponse createUser(RegisterUserRequest dto) throws DomainErrorWrapperException {
+        dto.validatePassword();
+
         UserEntity user = new UserEntity(dto.name(), dto.username(), dto.email(), dto.password());
 
         try {
@@ -42,7 +42,6 @@ public class AuthService implements AuthInterface {
                     HttpStatus.CONFLICT
             );
 
-
             if (ex.getMessage().contains("username"))
                 wrapper.appendError(new UsernameNotUnique(dto.username()));
 
@@ -50,8 +49,9 @@ public class AuthService implements AuthInterface {
                 wrapper.appendError(new EmailNotUnique(dto.email()));
 
             throw wrapper;
-        } catch(DataAccessException ex) {
 
+        } catch (DataAccessException ex) {
+            throw new DomainErrorWrapperException("Unable to persist to database", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return new RegisterUserResponse();

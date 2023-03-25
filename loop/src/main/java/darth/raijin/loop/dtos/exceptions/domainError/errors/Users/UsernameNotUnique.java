@@ -1,4 +1,4 @@
-package darth.raijin.loop.dtos.exceptions.domainError.errors;
+package darth.raijin.loop.dtos.exceptions.domainError.errors.Users;
 
 import darth.raijin.loop.dtos.exceptions.domainError.DomainError;
 

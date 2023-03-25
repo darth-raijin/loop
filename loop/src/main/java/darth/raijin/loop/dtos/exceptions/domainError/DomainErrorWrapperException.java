@@ -20,9 +20,15 @@ public class DomainErrorWrapperException extends Exception {
         this.statusCode = statusCode;
     }
 
+    public DomainErrorWrapperException() {
+
+    }
+
     private HttpStatusCode statusCode;
     private Instant timestamp;
     private List<DomainError> errors;
+
+
 
     public void appendError(DomainError error) {
         errors.add(error);

@@ -9,4 +9,6 @@ import darth.raijin.loop.dtos.users.registerUsers.RegisterUserResponse;
 public interface AuthInterface {
     RegisterUserResponse createUser(RegisterUserRequest user) throws DomainErrorWrapperException;
     LoginUserResponse loginUser(LoginUserRequest user) throws DomainErrorWrapperException;
+    Object resetPassowrd() throws DomainErrorWrapperException;
+
 }
