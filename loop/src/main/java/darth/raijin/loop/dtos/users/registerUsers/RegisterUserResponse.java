@@ -1,5 +1,8 @@
 package darth.raijin.loop.dtos.users.registerUsers;
 
-public class RegisterUserResponse {
+public record RegisterUserResponse(
+        String username,
+        String email
+) {
     
 }

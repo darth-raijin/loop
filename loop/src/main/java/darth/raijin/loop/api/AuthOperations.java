@@ -1,5 +1,6 @@
 package darth.raijin.loop.api;
 
+import darth.raijin.loop.dtos.exceptions.domainError.DomainErrorWrapperException;
 import darth.raijin.loop.dtos.users.loginUsers.LoginUserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -20,7 +21,7 @@ public interface AuthOperations {
     @ApiResponse(responseCode = "201", description = "Registered successfully")
     @ApiResponse(responseCode = "409", description = "Either Username or Email is not unique")
     public ResponseEntity<RegisterUserResponse>
-    registerUser(@RequestBody @Validated RegisterUserRequest user);
+    registerUser(@RequestBody @Validated RegisterUserRequest user) throws DomainErrorWrapperException;
 
     @PostMapping("/login")
     public ResponseEntity<LoginUserResponse> loginUser();

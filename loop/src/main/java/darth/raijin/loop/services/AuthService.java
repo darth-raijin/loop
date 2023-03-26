@@ -54,11 +54,17 @@ public class AuthService implements AuthInterface {
             throw new DomainErrorWrapperException("Unable to persist to database", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return new RegisterUserResponse();
+
+        return new RegisterUserResponse(user.getUsername(), user.getEmail());
     }
 
     @Override
     public LoginUserResponse loginUser(LoginUserRequest user) throws DomainErrorWrapperException {
+        return null;
+    }
+
+    @Override
+    public Object resetPassowrd() throws DomainErrorWrapperException {
         return null;
     }
 }

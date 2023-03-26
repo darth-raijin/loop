@@ -1,7 +1,12 @@
 package darth.raijin.loop.controllers;
 
+import darth.raijin.loop.dtos.exceptions.domainError.DomainErrorWrapperException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import darth.raijin.loop.api.AuthOperations;
 import darth.raijin.loop.dtos.users.registerUsers.RegisterUserRequest;
@@ -26,9 +31,9 @@ public class AuthController implements AuthOperations {
     }
 
     @Override
-    public ResponseEntity<RegisterUserResponse> registerUser(RegisterUserRequest user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'registerUser'");
+    public ResponseEntity<RegisterUserResponse> registerUser(@Valid @RequestBody RegisterUserRequest user)
+            throws DomainErrorWrapperException {
+        return new ResponseEntity<>(auth.createUser(user), HttpStatus.CREATED);
     }
     
 }
