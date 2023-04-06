@@ -1,12 +1,9 @@
 package darth.raijin.loop.entities;
 
+import java.util.Set;
 import java.util.UUID;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -32,6 +29,22 @@ public class UserEntity {
 
   @Column(name = "password")
   private String password;
+
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinTable(
+          name = "user_hosted_events",
+          joinColumns = @JoinColumn(name = "host_id"),
+          inverseJoinColumns = @JoinColumn(name = "event_id")
+  )
+  private Set<EventEntity> hostedEvents;
+
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinTable(
+          name = "user_participated_events",
+          joinColumns = @JoinColumn(name = "attendee_id"),
+          inverseJoinColumns = @JoinColumn(name = "event_id")
+  )
+  private Set<EventEntity> participatedEvents;
 
   /** Constructor used for registering user */
   public UserEntity(String name, String username, String email, String password) {
