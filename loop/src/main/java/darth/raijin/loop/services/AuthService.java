@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import darth.raijin.loop.dtos.exceptions.domainError.DomainErrorWrapperException;
@@ -23,10 +24,12 @@ import java.util.Optional;
 public class AuthService implements AuthInterface {
 
   private AuthRepository authRepository;
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
   @Autowired
-  public AuthService(AuthRepository authBean) {
+  public AuthService(AuthRepository authBean, BCryptPasswordEncoder bCrypt) {
     this.authRepository = authBean;
+    this.bCryptPasswordEncoder = bCrypt;
   }
 
   @Override
@@ -34,7 +37,9 @@ public class AuthService implements AuthInterface {
       throws DomainErrorWrapperException {
     dto.validatePassword();
 
-    UserEntity user = new UserEntity(dto.name(), dto.username(), dto.email(), dto.password());
+    UserEntity user =
+        new UserEntity(
+            dto.name(), dto.username(), dto.email(), bCryptPasswordEncoder.encode(dto.password()));
 
     try {
       user = authRepository.save(user);
@@ -61,14 +66,17 @@ public class AuthService implements AuthInterface {
   @Override
   public LoginUserResponse loginUser(LoginUserRequest user) throws DomainErrorWrapperException {
     UserEntity login = new UserEntity(null, null, null, null);
-    Optional<UserEntity> foundUser = Optional.empty();
+    Optional<UserEntity> foundUser;
 
     if (login.getUsername() != null) {
-      foundUser = authRepository.findByEmailAndPassword(login.getUsername(), login.getPassword());
+      foundUser =
+          authRepository.findByEmailAndPassword(
+              login.getUsername(), bCryptPasswordEncoder.encode(login.getPassword()));
 
     } else {
       foundUser =
-          authRepository.findByUsernameAndPassword(login.getUsername(), login.getPassword());
+          authRepository.findByUsernameAndPassword(
+              login.getUsername(), bCryptPasswordEncoder.encode(login.getPassword()));
     }
 
     if (foundUser.isEmpty()) {
