@@ -16,13 +16,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 @RequestMapping("/auth")
 public interface AuthOperations {
 
-    @PostMapping("/register")
-    @Schema(description = "Used for registering a user")
-    @ApiResponse(responseCode = "201", description = "Registered successfully")
-    @ApiResponse(responseCode = "409", description = "Either Username or Email is not unique")
-    public ResponseEntity<RegisterUserResponse>
-    registerUser(@RequestBody @Validated RegisterUserRequest user) throws DomainErrorWrapperException;
+  @PostMapping("/register")
+  @Schema(description = "Used for registering a user")
+  @ApiResponse(responseCode = "201", description = "Registered successfully")
+  @ApiResponse(responseCode = "409", description = "Either Username or Email is not unique")
+  public ResponseEntity<RegisterUserResponse> registerUser(
+      @RequestBody @Validated RegisterUserRequest user) throws DomainErrorWrapperException;
 
-    @PostMapping("/login")
-    public ResponseEntity<LoginUserResponse> loginUser();
+  @PostMapping("/login")
+  public ResponseEntity<LoginUserResponse> loginUser();
 }

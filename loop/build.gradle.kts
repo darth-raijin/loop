@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.1.0-SNAPSHOT"
 	id("io.spring.dependency-management") version "1.1.0"
+	id("com.github.sherter.google-java-format") version "0.9"
 }
 
 group = "darth.raijin.loop"
@@ -24,6 +25,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
+	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.liquibase:liquibase-core")
@@ -40,6 +42,9 @@ dependencies {
 	testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
 	testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
 	testImplementation("org.springframework:spring-test:6.0.6")
+
+	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
 }
 
 tasks.withType<Test> {

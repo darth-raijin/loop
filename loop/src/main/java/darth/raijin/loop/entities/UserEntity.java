@@ -14,73 +14,74 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "users")
 public class UserEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
-	@Column(name = "name")
-    @NotBlank    
-	private String name;
+  @Column(name = "name")
+  @NotBlank
+  private String name;
 
-	@Column(name = "username", unique = true)
-	private String username;
+  @Column(name = "username", unique = true)
+  private String username;
 
-	@Column(name = "email", unique = true)
-    @NotBlank
-    @Email
-	private String email;
+  @Column(name = "email", unique = true)
+  @NotBlank
+  @Email
+  private String email;
 
-	@Column(name = "password")
-    private String password;
+  @Column(name = "password")
+  private String password;
 
-    /**
-     * Constructor used for registering user
-     */
-    public UserEntity(String name, String username, String email, String password) {
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.password = password;
+  /** Constructor used for registering user */
+  public UserEntity(String name, String username, String email, String password) {
+    this.name = name;
+    this.username = username;
+    this.email = email;
+    this.password = password;
+  }
+
+    public UserEntity() {
+
     }
 
     public UUID getId() {
-        return id;
-    }
+    return id;
+  }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 }
-

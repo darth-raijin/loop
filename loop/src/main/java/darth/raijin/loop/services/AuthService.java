@@ -17,54 +17,70 @@ import darth.raijin.loop.dtos.users.registerUsers.RegisterUserRequest;
 import darth.raijin.loop.entities.UserEntity;
 import darth.raijin.loop.repositories.AuthRepository;
 
+import java.util.Optional;
+
 @Service
 public class AuthService implements AuthInterface {
 
-    private AuthRepository authRepository;
+  private AuthRepository authRepository;
 
-    @Autowired
-    public AuthService(AuthRepository authBean) {
-        this.authRepository = authBean;
+  @Autowired
+  public AuthService(AuthRepository authBean) {
+    this.authRepository = authBean;
+  }
+
+  @Override
+  public RegisterUserResponse createUser(RegisterUserRequest dto)
+      throws DomainErrorWrapperException {
+    dto.validatePassword();
+
+    UserEntity user = new UserEntity(dto.name(), dto.username(), dto.email(), dto.password());
+
+    try {
+      user = authRepository.save(user);
+
+    } catch (DataIntegrityViolationException ex) {
+      DomainErrorWrapperException wrapper =
+          new DomainErrorWrapperException("Provided data is not unique", HttpStatus.CONFLICT);
+
+      if (ex.getMessage().contains("username"))
+        wrapper.appendError(new UsernameNotUnique(dto.username()));
+
+      if (ex.getMessage().contains("email")) wrapper.appendError(new EmailNotUnique(dto.email()));
+
+      throw wrapper;
+
+    } catch (DataAccessException ex) {
+      throw new DomainErrorWrapperException(
+          "Unable to persist to database", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @Override
-    public RegisterUserResponse createUser(RegisterUserRequest dto) throws DomainErrorWrapperException {
-        dto.validatePassword();
+    return new RegisterUserResponse(user.getUsername(), user.getEmail());
+  }
 
-        UserEntity user = new UserEntity(dto.name(), dto.username(), dto.email(), dto.password());
+  @Override
+  public LoginUserResponse loginUser(LoginUserRequest user) throws DomainErrorWrapperException {
+    UserEntity login = new UserEntity(null, null, null, null);
+    Optional<UserEntity> foundUser = Optional.empty();
 
-        try {
-            user = authRepository.save(user);
+    if (login.getUsername() != null) {
+      foundUser = authRepository.findByEmailAndPassword(login.getUsername(), login.getPassword());
 
-        } catch (DataIntegrityViolationException ex) {
-            DomainErrorWrapperException wrapper = new DomainErrorWrapperException(
-                    "Provided data is not unique",
-                    HttpStatus.CONFLICT
-            );
-
-            if (ex.getMessage().contains("username"))
-                wrapper.appendError(new UsernameNotUnique(dto.username()));
-
-            if (ex.getMessage().contains("email"))
-                wrapper.appendError(new EmailNotUnique(dto.email()));
-
-            throw wrapper;
-
-        } catch (DataAccessException ex) {
-            throw new DomainErrorWrapperException("Unable to persist to database", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-
-        return new RegisterUserResponse(user.getUsername(), user.getEmail());
+    } else {
+      foundUser =
+          authRepository.findByUsernameAndPassword(login.getUsername(), login.getPassword());
     }
 
-    @Override
-    public LoginUserResponse loginUser(LoginUserRequest user) throws DomainErrorWrapperException {
-        return null;
+    if (foundUser.isEmpty()) {
+      throw new DomainErrorWrapperException("Invalid credentials", HttpStatus.UNAUTHORIZED);
     }
 
-    @Override
-    public Object resetPassowrd() throws DomainErrorWrapperException {
-        return null;
-    }
+    return new LoginUserResponse(
+        foundUser.get().getId(), foundUser.get().getUsername(), foundUser.get().getEmail());
+  }
+
+  @Override
+  public Object resetPassowrd() throws DomainErrorWrapperException {
+    return null;
+  }
 }

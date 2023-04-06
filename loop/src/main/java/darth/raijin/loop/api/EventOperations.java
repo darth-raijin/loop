@@ -13,15 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/events")
 public interface EventOperations {
 
-    @PostMapping("/")
-    @Schema(description = "Used for registering an user")
-    @ApiResponse(responseCode = "201", description = "Registered successfully")
-    @ApiResponse(responseCode = "422", description = "Failed creating event")
-    public ResponseEntity<RegisterUserResponse>
-    registerUser(@RequestBody @Validated RegisterUserRequest user);
+  @PostMapping("/")
+  @Schema(description = "Used for registering an user")
+  @ApiResponse(responseCode = "201", description = "Registered successfully")
+  @ApiResponse(responseCode = "422", description = "Failed creating event")
+  public ResponseEntity<RegisterUserResponse> registerUser(
+      @RequestBody @Validated RegisterUserRequest user);
 
-    @PostMapping("/login")
-    public ResponseEntity loginUser();
-
-
+  @PostMapping("/login")
+  public ResponseEntity loginUser();
 }

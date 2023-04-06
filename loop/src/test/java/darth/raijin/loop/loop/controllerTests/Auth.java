@@ -15,17 +15,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 public class Auth {
 
-    private final String baseUrl = "/auth";
+  private final String baseUrl = "/auth";
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-    @Test
-    void createOrder() throws Exception {
-        mockMvc.perform(post("")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"amount\": \"EUR100.0\"}"))
-                .andExpect(status().is2xxSuccessful());
-
-    }
+  @Test
+  void createOrder() throws Exception {
+    mockMvc
+        .perform(
+            post("").contentType(MediaType.APPLICATION_JSON).content("{\"amount\": \"EUR100.0\"}"))
+        .andExpect(status().is2xxSuccessful());
+  }
 }

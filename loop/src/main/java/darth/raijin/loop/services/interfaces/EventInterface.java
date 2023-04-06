@@ -1,5 +1,3 @@
 package darth.raijin.loop.services.interfaces;
 
-public interface EventInterface {
-    
-}
+public interface EventInterface {}

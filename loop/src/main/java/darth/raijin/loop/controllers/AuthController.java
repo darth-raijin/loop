@@ -15,25 +15,23 @@ import darth.raijin.loop.services.AuthService;
 
 @RestController
 public class AuthController implements AuthOperations {
-    
-    private AuthService auth;
 
-    @Autowired
-    public AuthController(AuthService authBean) {
-        this.auth = authBean;
-    }
+  private AuthService auth;
 
-    @Override
-    public ResponseEntity loginUser() {
-        
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'loginUser'");
-    }
+  public AuthController(AuthService authBean) {
+    this.auth = authBean;
+  }
 
-    @Override
-    public ResponseEntity<RegisterUserResponse> registerUser(@Valid @RequestBody RegisterUserRequest user)
-            throws DomainErrorWrapperException {
-        return new ResponseEntity<>(auth.createUser(user), HttpStatus.CREATED);
-    }
-    
+  @Override
+  public ResponseEntity loginUser() {
+
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'loginUser'");
+  }
+
+  @Override
+  public ResponseEntity<RegisterUserResponse> registerUser(
+      @Valid @RequestBody RegisterUserRequest user) throws DomainErrorWrapperException {
+    return new ResponseEntity<>(auth.createUser(user), HttpStatus.CREATED);
+  }
 }

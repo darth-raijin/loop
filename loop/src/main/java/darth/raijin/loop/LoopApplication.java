@@ -10,8 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableWebSecurity
 public class LoopApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(LoopApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(LoopApplication.class, args);
+  }
 }
