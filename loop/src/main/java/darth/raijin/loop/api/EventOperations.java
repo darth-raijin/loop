@@ -1,5 +1,7 @@
 package darth.raijin.loop.api;
 
+import darth.raijin.loop.dtos.events.createEvent.CreateEventRequest;
+import darth.raijin.loop.dtos.events.createEvent.CreateEventResponse;
 import darth.raijin.loop.dtos.users.registerUsers.RegisterUserRequest;
 import darth.raijin.loop.dtos.users.registerUsers.RegisterUserResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,11 +17,9 @@ public interface EventOperations {
 
   @PostMapping("/")
   @Schema(description = "Used for registering an user")
-  @ApiResponse(responseCode = "201", description = "Registered successfully")
+  @ApiResponse(responseCode = "201", description = "Created event")
   @ApiResponse(responseCode = "422", description = "Failed creating event")
-  public ResponseEntity<RegisterUserResponse> registerUser(
-      @RequestBody @Validated RegisterUserRequest user);
+  public ResponseEntity<CreateEventResponse> createEvent(
+      @RequestBody @Validated CreateEventRequest event);
 
-  @PostMapping("/login")
-  public ResponseEntity loginUser();
 }
