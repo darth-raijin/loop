@@ -14,7 +14,6 @@ spec:
       containers:
       - name: loop-backend
         image: h0tsauce/loop-api:latest
-        resources:
         ports:
         - containerPort: 8080
           hostPort: 8080
